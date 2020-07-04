@@ -1,0 +1,103 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formularioVenta {
+  width: 80vw;
+  min-width: 20em;
+  max-width: 70em;
+  border: 1px solid black;
+}
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.marginY {
+  margin: 0.4rem 0;
+}
+
+/* cabecera */
+.cabecera {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem 0;
+}
+
+.selectInput {
+  width: 50vw;
+  min-width: 15.5em;
+  max-width: 16em;
+}
+
+.input {
+  width: 50vw;
+  min-width: 15em;
+  max-width: 30em;
+}
+
+/* cuerpo */
+
+.cuerpo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 1rem 0;
+}
+/* 
+.detalle {
+} */
+
+.fieldPrecio {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1em 0;
+  border: 1px solid;
+  border-radius: 4px;
+}
+
+.itemField {
+  padding: 0 1em;
+}
+
+.botonesContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+}
+
+.boton {
+  width: 8em;
+  height: 4em;
+  margin: 1em;
+  min-width: 8em;
+}
+
+.inputField {
+  width: 10em;
+}
+
+.textAreaContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 3rem 0;
+}
+
+.totalContainer {
+  transform: translateY(-230%);
+  display: flex;
+  justify-content: flex-end;
+}
