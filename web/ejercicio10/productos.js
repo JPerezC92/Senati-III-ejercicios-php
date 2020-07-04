@@ -6,17 +6,17 @@ const productos = [
   },
   {
     nombre: "Cafe",
-    descripcion: "Cafe",
+    descripcion: "Abarrote",
     precio: 7.10
   },
   {
     nombre: "Galleta",
-    descripcion: "Galleta",
+    descripcion: "Abarrote",
     precio: 1.50
   },
   {
-    nombre: "Jugo",
-    descripcion: "Jugo",
+    nombre: "Gaseosa",
+    descripcion: "Bebida 1/2 litro",
     precio: 2.50
   },
 ];
