@@ -21,8 +21,6 @@ const productos = [
   },
 ];
 
-
-
 // opciones
 productos.forEach((producto) => {
 
@@ -38,8 +36,6 @@ productos.forEach((producto) => {
 });
 
 // descripcion
-
-
 const getDatos = () => {
   const selectProduct = document.querySelector("#selectProducto");
   const [ { descripcion, precio } ] = productos.filter(({ nombre }) => nombre === selectProduct.value);
