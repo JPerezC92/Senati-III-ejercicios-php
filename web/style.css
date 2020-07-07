@@ -368,6 +368,7 @@ html {
   background-color: rgb(21, 90, 150);
   text-align: center;
   padding: 1rem;
+  font-family: Fira Code;
 }
 
 .container {
@@ -378,9 +379,11 @@ html {
 
 .informacion {
   box-shadow: -1px 0px 4px 0px rgba(0, 0, 0, 0.75);
+  background-color: rgb(21, 90, 150);
   margin: 1rem;
   width: 40%;
   height: 95;
+  color: #ffffff;
 }
 .info-card {
   display: flex;
@@ -395,23 +398,34 @@ html {
   flex-direction: column;
   align-items: center;
 }
+.image {
+  border-radius: 100%;
+  background-color: #ffffff;
+  padding: 1.5rem;
+}
 .logo {
-  width: 18rem;
+  width: 10rem;
+  height: 10rem;
+  display: block;
+  margin: 0 auto;
 }
 
 .info-item {
-  display: inline-flex;
-  /* flex-direction: row; */
-
-  /* justify-content: space-between; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .label {
   width: 6rem;
   font-weight: bold;
+  margin: 0;
+  text-align: center;
 }
 
 .text {
   width: 17rem;
+  text-align: center;
 }
 li {
   list-style: none;
