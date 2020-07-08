@@ -6,18 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="style.css">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 
     <title>Ejercicios con PHP</title>
   </head>
 
   <body>
 
-    <section class="container">
+    <section class="containerCustom">
 
 
-      <section class="hero">
+      <section class="heroCustom">
 
-        <h1 class="text-white">Desarrollo de Aplicaciones Web II</h1>
+        <h1 class="text-white text-3xl py-2">Desarrollo de Aplicaciones Web II</h1>
 
       </section>
 
@@ -25,8 +26,8 @@
 
         <div class="informacion">
 
-          <figure class="image">
-            <img src="./static/senati.png" class="logo">
+          <figure class="imageCustom">
+            <img src="./static/senati.png" class="logoCustom">
           </figure>
 
           <div class="info">
@@ -60,7 +61,7 @@
 
             </div>
 
-            <h2>2020</h2>
+            <h2 class="anio">2020</h2>
           </div>
         </div>
 
@@ -119,11 +120,8 @@
 
           </a>
           <a href="./ejercicio06/index.php" class="ejercicio-item">
-
-
             <img class="logoPHP" src="./static/php.svg">
             <p>
-
               Ejercicio 06
             </p>
 

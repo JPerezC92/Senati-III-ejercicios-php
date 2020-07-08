@@ -364,14 +364,14 @@ html {
   color: #ffffff;
 }
 
-.hero {
+.heroCustom {
   background-color: rgb(21, 90, 150);
   text-align: center;
   padding: 1rem;
   font-family: Fira Code;
 }
 
-.container {
+.containerCustom {
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -382,8 +382,12 @@ html {
   background-color: rgb(21, 90, 150);
   margin: 1rem;
   width: 40%;
-  height: 95;
+  height: 95%;
   color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 .info-card {
   display: flex;
@@ -398,12 +402,14 @@ html {
   flex-direction: column;
   align-items: center;
 }
-.image {
+.imageCustom {
   border-radius: 100%;
   background-color: #ffffff;
   padding: 1.5rem;
+  height: 13rem;
+  width: 13rem;
 }
-.logo {
+.logoCustom {
   width: 10rem;
   height: 10rem;
   display: block;
@@ -426,6 +432,7 @@ html {
 .text {
   width: 17rem;
   text-align: center;
+  margin: 0.5rem;
 }
 li {
   list-style: none;
@@ -467,4 +474,10 @@ ul.text {
 
 .logoPHP {
   width: 5rem;
+}
+
+.anio {
+  /* margin-top: 0.2rem; */
+  font-size: 1.5rem;
+  font-weight: bold;
 }
