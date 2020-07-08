@@ -8,7 +8,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
 
     $cadena ='<p>';
     $cadena.= <<< MARCA_FINAL
-        <form action='$este_script' class="form-horizontal" method="POST">
+    <head>
+    <meta charset="utf-8">
+    <title>COSTOS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    </head>
+    <body>
+    <h2>Costo con Descuento</h2>
+    <form action='$este_script' class="form-horizontal" method="POST">
         <form class="form-horizontal" method="POST">
         <table  width='800' id='radio' class="table table-condensed table-striped">
             <tr>
@@ -31,17 +40,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET'){
             </tr>
             <tr>
             <td><div class="form-group">
-                <label class="col-md-4 control-label" for=""></label>
-                <div class="col-md-8">
-                <input name="enviar" type="submit" value="Enviar">
-                <input name="reset" type="reset" value="Limpiar">
-                
-                </div>
-                </div>
-            </td>
-        </tr>
-
-        </table>
+            <label class="col-md-4 control-label" for=""></label>
+            <div class="col-md-8">
+            <input name="enviar" type="submit" value="Enviar">
+            <input name="reset" type="reset" value="Limpiar">
+            </div>
+            </div>
+        </td>
+    </tr>
 MARCA_FINAL;
 }
 
@@ -51,17 +57,25 @@ else{
     $precio3=$precio1*0.11 + $precio1;
     $precio4=$precio2*0.15+ $precio2;
     $cadena1.= <<< MARCA_FINAL
-    <tr><td><h2>Costo sin Descuento</h2></td></tr>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <table  width='800' id='radio' class="table table-condensed table-striped">
     <tr>
+    <tr><td><h2>Costo sin Descuento</h2></td></tr>
             <td><div class="form-group">
-                <label class="col-md-4 control-label" for="">Costo de refrigeradora: $precio3</label>  
+                <label class="col-md-4 control-label" for="">Costo de refrigeradora:</label>  
+                <div class="col-md-4">
+                <input name="" type="number" class= "form-control input-md" value="$precio3">
                 </div>
                 </div>
             </td>
         </tr>
         <tr>
             <td><div class="form-group">
-                <label  for="">Costo de televisor:$precio4</label>                
+                <label class="col-md-4 control-label" for="">Costo de televisor:</label>  
+                <div class="col-md-4">
+                <input name="" type="number" class= "form-control input-md" value="$precio4">
                 </div>
                 </div>
             </td>
