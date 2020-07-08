@@ -223,12 +223,16 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
     </form>
 
 
+    <!-- fin form 1 -->
+
 
 
     </table>
     <fieldset>
     <fieldset>
         <legend><h3>Ingreso de Notas</h3></legend>
+
+
         <form class="form-horizontal" method="POST">
         <table id='ingresodenotas' class="table table-condensed table-striped">
             <tr>
@@ -352,6 +356,9 @@ if (isset($_POST["agregar"]) || isset($_POST["calcularPromedio"])) {
                 </td>
             </tr>
         </form>
+
+<!-- fin form 1 -->
+
         </table>
     </fieldest>
         <form class="form-horizontal" method="POST">

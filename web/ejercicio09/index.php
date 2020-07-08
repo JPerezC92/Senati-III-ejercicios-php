@@ -6,100 +6,175 @@ $esteScript = basename(__FILE__);
 
 if ('GET' === $_SERVER['REQUEST_METHOD']) {
 
-    $listaProductos = array();
+    $listaAlumnosArray = array();
 
-    $_SESSION["listaProductos"] = $listaProductos;
+    $_SESSION["listaAlumnosArray"] = $listaAlumnosArray;
 
-    $listaDescripcion = null;
-    $listaPrecios     = null;
-    $listaCantidad    = null;
-    $listaSubtotal    = null;
+    $listaNro               = "\n";
+    $listaAlumnosTextArea   = "\n";
+    $listaNota01TextArea    = "\n";
+    $listaNota02TextArea    = "\n";
+    $listaNota03TextArea    = "\n";
+    $listaPromedioTextArea  = "\n";
+    $listaCondicionTextArea = "\n";
 
-} elseif (isset($_POST["aceptarSubmit"])) {
+    $_SESSION["listaNro"]               = $listaNro;
+    $_SESSION["listaAlumnosTextArea"]   = $listaAlumnosTextArea;
+    $_SESSION["listaNota01TextArea"]    = $listaNota01TextArea;
+    $_SESSION["listaNota02TextArea"]    = $listaNota02TextArea;
+    $_SESSION["listaNota03TextArea"]    = $listaNota03TextArea;
+    $_SESSION["listaPromedioTextArea"]  = $listaPromedioTextArea;
+    $_SESSION["listaCondicionTextArea"] = $listaCondicionTextArea;
 
-    if (!isset($_SESSION["listaProductos"]) || empty($_SESSION["listaProductos"])) {
-        $listaProductos             = array();
-        $_SESSION["listaProductos"] = $listaProductos;
+    // $promediosEnMemoria = false;
+
+} elseif (isset($_POST["agregar"])) {
+
+    if (!isset($_SESSION["listaAlumnosArray"]) || empty($_SESSION["listaAlumnosArray"])) {
+        $listaAlumnosArray             = array();
+        $_SESSION["listaAlumnosArray"] = $listaAlumnosArray;
     }
 
-    $listaProductos = $_SESSION["listaProductos"];
+    $listaAlumnosArray = $_SESSION["listaAlumnosArray"];
 
-    if (!empty($_POST["selectProducto"]) && !empty($_POST["descripcion"]) && !empty($_POST["precio"]) && !empty($_POST["cantidad"])) {
+    if (!empty($_POST["nombreAlumno"]) && !empty($_POST["nota1"]) && !empty($_POST["nota2"]) && !empty($_POST["nota3"])) {
 
-        $listaDescripcion = null;
-        $listaPrecios     = "\n";
-        $listaCantidad    = "\n";
-        $listaSubtotal    = "\n";
+        $listaNro             = "\n";
+        $listaAlumnosTextArea = "\n";
+        $listaNota01TextArea  = "\n";
+        $listaNota02TextArea  = "\n";
+        $listaNota03TextArea  = "\n";
 
-        $total = 0;
+        if (isset($_SESSION["listaPromedioTextArea"])) {
+            $listaPromedioTextArea  = $_SESSION["listaPromedioTextArea"];
+            $listaCondicionTextArea = $_SESSION["listaCondicionTextArea"];
+        } else {
+            $listaPromedioTextArea  = "\n";
+            $listaCondicionTextArea = "\n";
+        }
 
-        // Obteniendo datos
-        // $productoNombre      = $_POST["selectProducto"];
-        // $productoDescripcion = $_POST["descripcion"];
-        // $productoPrecio      = $_POST["precio"];
-        // $productoCantidad    = $_POST["cantidad"];
-
-        // guardando nuevo producto
-        $nuevoItem = array(
-            "nombre"      => $_POST["selectProducto"],
-            "descripcion" => $_POST["descripcion"],
-            "precio"      => $_POST["precio"],
-            "cantidad"    => $_POST["cantidad"],
-
+        $nuevoAlumno = array(
+            "nombreAlumno" => $_POST["nombreAlumno"],
+            "nota1"        => $_POST["nota1"],
+            "nota2"        => $_POST["nota2"],
+            "nota3"        => $_POST["nota3"],
         );
 
-        array_push($listaProductos, $nuevoItem);
+        array_push($listaAlumnosArray, $nuevoAlumno);
 
-        $_SESSION["listaProductos"] = $listaProductos;
+        $_SESSION["listaAlumnosArray"] = $listaAlumnosArray;
 
-        for ($i = 0; $i < count($listaProductos); $i++) {
+        echo "Contando alumnos" . count($listaAlumnosArray);
 
-            $itemNombre      = $listaProductos[$i]["nombre"];
-            $itemDescripcion = $listaProductos[$i]["descripcion"];
-            $itemPrecio      = $listaProductos[$i]["precio"];
-            $itemCantidad    = $listaProductos[$i]["cantidad"];
+        for ($i = 0; $i < count($listaAlumnosArray); $i++) {
 
-            $listaDescripcion .= ($i + 1) . ".$itemNombre: $itemDescripcion\n";
-            $listaPrecios .= "\t$itemPrecio\n";
-            $listaCantidad .= "\t$itemCantidad\n";
-            $listaSubtotal .= "\t" . ($itemCantidad * $itemPrecio) . "\n";
+            $nombreAlumno = $listaAlumnosArray[$i]["nombreAlumno"];
+            $nota1        = $listaAlumnosArray[$i]["nota1"];
+            $nota2        = $listaAlumnosArray[$i]["nota2"];
+            $nota3        = $listaAlumnosArray[$i]["nota3"];
 
-            $total += ($itemCantidad * $itemPrecio);
+            $listaNro .= ($i + 1) . "\n";
+            $listaAlumnosTextArea .= "$nombreAlumno\n";
+            $listaNota01TextArea .= "$nota1\n";
+            $listaNota02TextArea .= "$nota2\n";
+            $listaNota03TextArea .= "$nota3\n";
 
         }
 
-        $_SESSION["listaDescripcion"] = $listaDescripcion;
-        $_SESSION["listaPrecios"]     = $listaPrecios;
-        $_SESSION["listaCantidad"]    = $listaCantidad;
-        $_SESSION["listaSubtotal"]    = $listaSubtotal;
-        $_SESSION["total"]            = $total;
-        // echo $lista;
+        $_SESSION["listaNro"]             = $listaNro;
+        $_SESSION["listaAlumnosTextArea"] = $listaAlumnosTextArea;
+        $_SESSION["listaNota01TextArea"]  = $listaNota01TextArea;
+        $_SESSION["listaNota02TextArea"]  = $listaNota02TextArea;
+        $_SESSION["listaNota03TextArea"]  = $listaNota03TextArea;
 
     } else {
         echo "<h2>LLene los campos vacios</h2>";
+        $listaAlumnosTextArea = $_SESSION["listaAlumnosTextArea"];
+        $listaNota01TextArea  = $_SESSION["listaNota01TextArea"];
+        $listaNota02TextArea  = $_SESSION["listaNota02TextArea"];
+        $listaNota03TextArea  = $_SESSION["listaNota03TextArea"];
 
-        $listaDescripcion = $_SESSION["listaDescripcion"];
-        $listaPrecios     = $_SESSION["listaPrecios"];
-        $listaCantidad    = $_SESSION["listaCantidad"];
-        $listaSubtotal    = $_SESSION["listaSubtotal"];
-
-        $total = $_SESSION["total"];
     }
+
+} elseif (isset($_POST["calcularPromedio"])) {
+
+    $listaNro                 = "\n";
+    $listaPromedioTextArea    = "\n";
+    $listaCondicionTextArea   = "\n";
+    $totalAlumnosAprobados    = 0;
+    $totalAlumnosDesaprobados = 0;
+
+    $listaAlumnosArray = $_SESSION["listaAlumnosArray"];
+    $totalAlumnos      = count($listaAlumnosArray);
+
+    $listaNro             = $_SESSION["listaNro"];
+    $listaAlumnosTextArea = $_SESSION["listaAlumnosTextArea"];
+    $listaNota01TextArea  = $_SESSION["listaNota01TextArea"];
+    $listaNota02TextArea  = $_SESSION["listaNota02TextArea"];
+    $listaNota03TextArea  = $_SESSION["listaNota03TextArea"];
+
+    for ($i = 0; $i < count($listaAlumnosArray); $i++) {
+
+        $nota1 = $listaAlumnosArray[$i]["nota1"];
+        $nota2 = $listaAlumnosArray[$i]["nota2"];
+        $nota3 = $listaAlumnosArray[$i]["nota3"];
+
+        $promedio = ($nota1 + $nota2 + $nota3) / 3;
+
+        $listaPromedioTextArea .= "$promedio\n";
+
+        if ($promedio > 10) {
+
+            $totalAlumnosAprobados += 1;
+            $listaCondicionTextArea .= "Aprobado\n";
+        } else {
+            $listaCondicionTextArea .= "Desaprobado\n";
+            $totalAlumnosDesaprobados += 1;
+
+        }
+
+        $_SESSION["listaPromedioTextArea"]  = $listaPromedioTextArea;
+        $_SESSION["listaCondicionTextArea"] = $listaCondicionTextArea;
+
+        // $promediosEnMemoria = true;
+
+    }
+
 } elseif (isset($_POST["nuevo"])) {
 
-    $listaDescripcion = null;
-    $listaPrecios     = null;
-    $listaCantidad    = null;
-    $listaSubtotal    = null;
-    $total            = null;
-    session_destroy();
-} elseif (isset($_POST["botonCancelar"]) || isset($_POST["botonPrincipal"])) {
+    $listaNro                 = null;
+    $listaAlumnosTextArea     = null;
+    $listaNota01TextArea      = null;
+    $listaNota02TextArea      = null;
+    $listaNota03TextArea      = null;
+    $listaPromedioTextArea    = null;
+    $listaCondicionTextArea   = null;
+    $totalAlumnos             = null;
+    $totalAlumnosAprobados    = null;
+    $totalAlumnosDesaprobados = null;
+
+    $_SESSION["listaNro"]             = $listaNro;
+    $_SESSION["listaAlumnosTextArea"] = $listaAlumnosTextArea;
+    $_SESSION["listaNota01TextArea"]  = $listaNota01TextArea;
+    $_SESSION["listaNota02TextArea"]  = $listaNota02TextArea;
+    $_SESSION["listaNota03TextArea"]  = $listaNota03TextArea;
+    $_SESSION["listaNota03TextArea"]  = $listaPromedioTextArea;
+    $_SESSION["listaNota03TextArea"]  = $listaCondicionTextArea;
+
+    $listaAlumnosArray             = array();
+    $_SESSION["listaAlumnosArray"] = $listaAlumnosArray;
+
+} elseif (isset($_POST["salir"]) || isset($_POST["botonPrincipal"])) {
 
     header('Location: /index.php');
     exit;
 } elseif (isset($_POST["botonAtras"])) {
 
-    header('Location: /ejercicio09/index.php');
+    header('Location: /ejercicio08/index.php');
+    exit;
+} elseif (isset($_POST["botonAdelante"])) {
+
+    header('Location: /ejercicio10/index.php');
     exit;
 }
 ?>
@@ -175,95 +250,62 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
         <div class="ejercicios p-4">
 
 
-          <form class="w-full h-full flex-col items-center" action="<?php $esteScript ?>" method="post">
+          <div class="w-full h-full flex-col items-center" action="<?php $esteScript ?>" method="post">
 
-            <h1 class="text-2xl m-4 pb-4 text-center">Ejercicio 10</h1>
-
+          <h3 class="text-center">Datos del alumno:</h3>
+            <form method="POST">
             <div class="flex flex-wrap mx-3 mb-2">
-              <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
-                  Seleccione Producto
+
+
+
+              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+
+
+
+              <div class="flex mt-2 items-center">
+
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold" for="grid-city">
+                  Alumno:&nbsp;
                 </label>
-                <div class="relative">
-
-
-                  <input class="block appearance-none w-full bg-white-200 border border-blue-500 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  list="productos" name="selectProducto" id="selectProducto"/>
-                  <datalist id="productos"></datalist>
-
-
-                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
-                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
-                  </div>
-                </div>
+                <input class="appearance-none block bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="nombreAlumno" id="nombreAlumno">
               </div>
+              <div class="flex mt-2 items-center">
 
-              <div class="w-full md:w-2/3 px-3 mb-6 md:mb-0">
-                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-                  Descripcion
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold" for="grid-city">
+                  Nota 1:&nbsp;
                 </label>
-                <input class="appearance-none block w-full bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="descripcion" id="descripcion">
+                <input class="w-16 appearance-none block bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="nota1" id="nota1">
+              </div>
+              <div class="flex mt-2 items-center">
+
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold" for="grid-city">
+                  Nota 2:&nbsp;
+                </label>
+                <input class="w-16 appearance-none block bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="nota2" id="nota2">
+              </div>
+              <div class="flex mt-2 items-center">
+
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold" for="grid-city">
+                  Nota 3:&nbsp;
+                </label>
+                <input class="w-16 appearance-none block bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" type="text" name="nota3" id="nota3">
               </div>
 
 
             </div>
 
-            <div class="flex flex-wrap mx-3 mb-2 mt-8">
-
-              <div class="flex w-full md:w-3/4 px-3 mb-6 md:mb-0 items-center">
-
-                <div class="flex flex-wrap mx-3 mb-2 text-center">
-
-
-                  <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-                      Precio
-                    </label>
-                    <input class="appearance-none block w-full bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    type="text" id="precio" name="precio">
-                  </div>
-
-
-                  <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-                      Cantidad
-                    </label>
-                    <input class="appearance-none block w-full bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    type="text" id="cantidad" name="cantidad" value="1">
-                  </div>
-                  <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-                      Tipo de Cambio
-                    </label>
-                    <input class="appearance-none block w-full bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                    type="text" id="tipoCambio" name="tipoCambio">
-                  </div>
-
-
-                </div>
-
+              <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0 flex flex-col justify-center">
+              <button
+                          class="w-24 bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 border border-blue-700 rounded" type="submit" id="agregar" name="agregar">
+                          Agregar
+                  </button>
               </div>
 
-              <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
-
-                <div class="flex flex-wrap mx-3 mb-2 items-center justify-center">
-
-
-                  <button
-                          class="bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 border border-blue-700 rounded" type="submit" name="aceptarSubmit">
-                    Aceptar
-                  </button>
-
-                  <button
-                          class="bg-green-500 hover:bg-green-700 text-white font-bold m-2 py-2 px-4 border border-green-700 rounded" type="submit" name="nuevo">
-                    Nuevo
-                  </button>
-                </div>
-
-              </div>
+              </form>
 
             </div>
+
+
 
 
 
@@ -275,21 +317,38 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
             <div class="flex flex-wrap mx-3 mb-2 mt-8">
 
               <!-- textarea -->
-              <div class="flex w-full md:w-3/4 px-3 mb-6 md:mb-0 items-center">
+              <div class="flex w-full md:w-full px-3 mb-6 md:mb-0 items-center">
 
                 <div class="flex flex-wrap mx-3 mb-2">
 
 
-                  <div class="w-full md:w-2/5 px-3 mb-6 md:mb-0">
+                  <div class="w-full md:w-1/12 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-                      Descripcion
+                      N°
                     </label>
 
 
                               <?php
-if (isset($_POST["aceptarSubmit"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
-    echo "<textarea name='descripcionTextArea' id='descripcionTextArea'
-    class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaDescripcion . "</textarea>";
+if (isset($_POST["agregar"]) || isset($_POST["calcularPromedio"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
+
+    echo "<textarea name='listaNro' id='listaNro'
+    class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaNro . "</textarea>";
+}
+?>
+
+
+                  </div>
+                  <div class="w-full md:w-4/12 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                      Nombre
+                    </label>
+
+
+                              <?php
+if (isset($_POST["agregar"]) || isset($_POST["calcularPromedio"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
+
+    echo "<textarea name='nombreTextArea' id='nombreTextArea'
+    class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaAlumnosTextArea . "</textarea>";
 }
 ?>
 
@@ -297,47 +356,83 @@ if (isset($_POST["aceptarSubmit"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
                   </div>
 
 
-                  <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                  <div class="w-full md:w-1/12 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-                      Precio
+                      Nota 1
                     </label>
 
 
                               <?php
-if (isset($_POST["aceptarSubmit"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
-    echo "<textarea name='precioTextArea' id='precioTextArea'
-    class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaPrecios . "</textarea>";
+if (isset($_POST["agregar"]) || isset($_POST["calcularPromedio"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
+    echo "<textarea name='nota1TextArea' id='nota1TextArea'
+    class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaNota01TextArea . "</textarea>";
 }
 ?>
 
                   </div>
 
 
-                  <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                  <div class="w-full md:w-1/12 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-                      Cantidad
+                    Nota 2
                     </label>
 
                               <?php
-if (isset($_POST["aceptarSubmit"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
-    echo "<textarea name='cantidadTextArea' id='cantidadTextArea' class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaCantidad . "</textarea>";
+if (isset($_POST["agregar"]) || isset($_POST["calcularPromedio"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
+    echo "<textarea name='nota2TextArea' id='nota2TextArea' class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaNota02TextArea . "</textarea>";
 }
 ?>
 
                   </div>
 
 
-                  <div class="w-full md:w-1/5 px-3 mb-6 md:mb-0">
+                  <div class="w-full md:w-1/12 px-3 mb-6 md:mb-0">
                     <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
-                      Subtotal
+                      Nota 3
                     </label>
 
 
                     <?php
-if (isset($_POST["aceptarSubmit"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
+if (isset($_POST["agregar"]) || isset($_POST["calcularPromedio"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
 
-    echo "<textarea name='subtotal' id='subtotal'
-    class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaSubtotal . "</textarea>";
+    echo "<textarea name='nota3TextArea' id='nota3TextArea'
+    class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaNota03TextArea . "</textarea>";
+}
+?>
+
+
+                  </div>
+
+
+                  <div class="w-full md:w-2/12 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                      Promedio
+                    </label>
+
+
+                    <?php
+if (isset($_POST["agregar"]) || isset($_POST["calcularPromedio"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
+
+    echo "<textarea name='promedioTextArea' id='promedioTextArea'
+    class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaPromedioTextArea . "</textarea>";
+}
+?>
+
+
+                  </div>
+
+
+                  <div class="w-full md:w-2/12 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-city">
+                      Condicion
+                    </label>
+
+
+                    <?php
+if (isset($_POST["agregar"]) || isset($_POST["calcularPromedio"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
+
+    echo "<textarea name='condicionTextArea' id='condicionTextArea'
+    class='resize-y h-32 w-full border rounded focus:outline-none focus:shadow-outline'>" . $listaCondicionTextArea . "</textarea>";
 }
 ?>
 
@@ -346,66 +441,123 @@ if (isset($_POST["aceptarSubmit"]) || 'GET' === $_SERVER['REQUEST_METHOD']) {
 
 
 
-                  <div class="w-full px-3 mb-6 md:mb-0 flex justify-end">
-                    <div class="flex items-center justify-center w-1/6 mr-6">
 
-                      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2  mr-2"
-                             for="grid-city">
-                        Total:
-                      </label>
-                      <input  class="appearance-none block w-full bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                             id="grid-city" type="text" name="total"
-                             <?php
-if (isset($_POST["aceptarSubmit"])) {
-    echo "value=$total";
-}
-?>
-
-                             >
-                    </div>
-
-                  </div>
                 </div>
 
 
               </div>
               <!-- boton -->
-              <div class="w-full md:w-1/4 px-3 mb-6 md:mb-0">
 
-                <div class="flex flex-wrap mx-3 mb-2 items-center justify-center">
-
-
-                  <button
-                          class="bg-red-500 hover:bg-red-700 text-white font-bold m-2 py-2 px-4 border border-blue-700 rounded" id="botonCancelar" name="botonCancelar">
-                    Cancelar
-                  </button>
-
-                </div>
-
-              </div>
 
             </div>
 
 
-            <div class="flex flex-wrap mx-3 mt-10 mb-2 items-center justify-center">
+
+            <form action="" method="post">
+            <div class="flex flex-wrap mx-3 mb-2 mt-8">
 
 
-              <button
-                      class="bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 border border-blue-700 rounded" name="botonAtras" id="botonAtras">
-                << </button>
-                  <button
+
+<div class="flex flex-col w-full md:w-1/2 px-3 mb-6 md:mb-0 items-center">
+
+  <div class="flex flex-wrap mx-3 mb-2 text-center">
+
+    <div class="w-full md:h-1/3 px-3 m-2 md:mb-0 flex justify-end items-center">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-0" for="grid-city">
+        Total:&nbsp;
+      </label>
+      <input class="appearance-none block w-24 bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+      type="text" id="totalAlumnosInput" name="totalAlumnosInput"
+      <?php
+if (isset($_POST["calcularPromedio"])) {
+    echo "value=$totalAlumnos";
+}
+?>
+      >
+    </div>
+    <div class="w-full md:h-1/3 px-3 m-2 md:mb-0 flex justify-end items-center">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-0" for="grid-city">
+        Aprobados:&nbsp;
+      </label>
+      <input class="appearance-none block w-24 bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+      type="text" id="totalAlumnosAprobadosInput" name="totalAlumnosAprobadosInput"
+      <?php
+if (isset($_POST["calcularPromedio"])) {
+    echo "value=$totalAlumnosAprobados";
+}
+?>
+>
+
+
+    </div>
+    <div class="w-full md:h-1/3 px-3 m-2 md:mb-0 flex justify-end items-center">
+      <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-0" for="grid-city">
+        Desaprobados:&nbsp;
+      </label>
+      <input class="appearance-none block w-24 bg-white text-gray-700 border border-blue-500 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+      type="text" id="totalAlumnosDesaprobadosInput" name="totalAlumnosDesaprobadosInput"
+
+      <?php
+if (isset($_POST["calcularPromedio"])) {
+    echo "value=$totalAlumnosDesaprobados";
+}
+?>
+      >
+    </div>
+
+
+
+
+
+  </div>
+
+</div>
+
+<div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+
+<div class="flex flex-col mx-3 mb-2 ">
+
+
+  <button
+  class="bg-red-500 hover:bg-red-700 text-white font-bold m-2 py-2 px-4 border border-red-700 rounded w-32" type="submit" id="salir" name="salir">
+      Salir
+    </button>
+    <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 border border-blue-700 rounded w-32" type="submit" id="calcularPromedio" name="calcularPromedio">
+    Calcular Promedio
+    </button>
+    <button
+    class="bg-orange-500 hover:bg-orange-700 text-white font-bold m-2 py-2 px-4 border border-orange-700 rounded w-32" type="reset" id="nuevo" name="nuevo">
+      Nuevo
+    </button>
+
+
+  </div>
+
+</div>
+
+</div>
+
+<div class="flex flex-wrap mx-3 mt-4 mb-2 items-center justify-center">
+
+
+  <button
+  class="bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 border border-blue-700 rounded" name="botonAtras" id="botonAtras">
+  << </button>
+  <button
                           class="bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 border border-blue-700 rounded" name="botonPrincipal" id="botonPrincipal">
                     Ir seccion principal
                   </button>
-                  <!-- <button
-                          class="bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 border border-blue-700 rounded">
-                    Cancelar
-                  </button> -->
+                  <button
+                  class="bg-blue-500 hover:bg-blue-700 text-white font-bold m-2 py-2 px-4 border border-blue-700 rounded" name="botonAdelante">
+                  >>
+                </button>
 
-            </div>
+              </div>
 
-
-          </form>
+<!-- ex form -->
+</div>
+</form>
 
         </div>
 
@@ -416,4 +568,4 @@ if (isset($_POST["aceptarSubmit"])) {
     <script src="./productos.js"></script>
   </body>
 
-</html>
+  </html>
