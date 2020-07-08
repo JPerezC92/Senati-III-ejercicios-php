@@ -99,7 +99,7 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
     exit;
 } elseif (isset($_POST["botonAtras"])) {
 
-    header('Location: /ejercicio09');
+    header('Location: /ejercicio09/index.php');
     exit;
 }
 ?>
